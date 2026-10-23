@@ -13,10 +13,15 @@ import lectureRoute from "./routes/Lecture.route.js";
 
 const app = express();
 dotenv.config();
-const allowedOrigins = [
-    process.env.FRONTEND_URL?.replace(/\/$/, ""),
-    "http://localhost:5173",
-].filter(Boolean);
+const allowedOrigins = [process.env.FRONTEND_URL];
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 //middleware
 app.use(express.json());
